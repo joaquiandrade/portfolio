@@ -1,3 +1,4 @@
+```javascript
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -47,35 +48,71 @@ export default async function handler(req, res) {
 
     const turnstileResult = await turnstileResponse.json()
 
-if (!turnstileResult.success) {
-  console.error('TURNSTILE ERROR:', turnstileResult)
+    if (!turnstileResult.success) {
+      console.error('TURNSTILE ERROR:', turnstileResult)
 
-  return res.status(400).json({
-    message: 'La validación de seguridad falló',
-    details: turnstileResult
-  })
-}
+      return res.status(400).json({
+        message: 'La validación de seguridad falló'
+      })
+    }
+
+    // ==============================
+    // PREPARAR FUNCIONALIDADES
+    // ==============================
 
     const featuresText =
       features?.length > 0
-        ? features.map(feature => `• ${feature.name} — $${feature.price.toLocaleString('es-AR')}`).join('\n')
+        ? features
+            .map(
+              (feature) =>
+                `• ${feature.name} — $${Number(feature.price).toLocaleString('es-AR')}`
+            )
+            .join('\n')
         : 'Ninguna'
+
+    // ==============================
+    // PREPARAR SERVICIOS
+    // ==============================
 
     const servicesText =
       services?.length > 0
-        ? services.map(service => {
-            const monthly = service.isMonthly ? ' / mes' : ''
-            return `• ${service.name} — $${service.price.toLocaleString('es-AR')}${monthly}`
-          }).join('\n')
+        ? services
+            .map((service) => {
+              const monthly = service.isMonthly ? ' / mes' : ''
+
+              return `• ${service.name} — $${Number(service.price).toLocaleString('es-AR')}${monthly}`
+            })
+            .join('\n')
         : 'Ninguno'
 
+    // ==============================
+    // CONFIGURACIÓN DEL EMAIL
+    // ==============================
+
+    const fromEmail = process.env.RESEND_FROM_EMAIL
+    const toEmail = process.env.RESEND_TO_EMAIL
+
+    if (!fromEmail || !toEmail) {
+      console.error('Faltan variables de Resend:', {
+        RESEND_FROM_EMAIL: !!fromEmail,
+        RESEND_TO_EMAIL: !!toEmail
+      })
+
+      return res.status(500).json({
+        message: 'La configuración de email está incompleta'
+      })
+    }
+
+    // ==============================
     // ENVIAR EMAIL
+    // ==============================
 
     const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL,
-      to: process.env.RESEND_TO_EMAIL,
+      from: fromEmail,
+      to: [toEmail],
       subject: `Nueva cotización web - ${nombre}`,
       replyTo: email,
+
       text: `
 NUEVA COTIZACIÓN WEB
 ================================
@@ -94,7 +131,7 @@ PROYECTO
 ${project?.name || 'No seleccionado'}
 
 Precio base:
-$${(project?.basePrice || 0).toLocaleString('es-AR')}
+$${Number(project?.basePrice || 0).toLocaleString('es-AR')}
 
 
 FUNCIONALIDADES
@@ -110,10 +147,10 @@ ${servicesText}
 RESUMEN
 
 Total estimado:
-$${Number(total).toLocaleString('es-AR')}
+$${Number(total || 0).toLocaleString('es-AR')}
 
 Mantenimiento:
-$${Number(monthlyTotal).toLocaleString('es-AR')} / mes
+$${Number(monthlyTotal || 0).toLocaleString('es-AR')} / mes
 
 
 ================================
@@ -121,13 +158,15 @@ Solicitud generada desde el Cotizador Web.
       `
     })
 
-  if (error) {
-    console.error('ERROR RESEND:', error)
+    if (error) {
+      console.error('ERROR RESEND:', error)
 
-    return res.status(500).json({
-      message: error.message || 'No se pudo enviar el email'
-    })
-  }
+      return res.status(500).json({
+        message: error.message || 'No se pudo enviar el email'
+      })
+    }
+
+    console.log('COTIZACIÓN ENVIADA:', data?.id)
 
     return res.status(200).json({
       success: true,
@@ -135,10 +174,11 @@ Solicitud generada desde el Cotizador Web.
     })
 
   } catch (error) {
-    console.error(error)
+    console.error('ERROR INTERNO SEND-QUOTE:', error)
 
     return res.status(500).json({
       message: 'Error interno del servidor'
     })
   }
 }
+```

@@ -11,6 +11,7 @@ export default function Cotizador() {
   const [showModal, setShowModal] = useState(false)
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [contactSent, setContactSent] = useState(false)
 
   const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
@@ -144,7 +145,9 @@ export default function Cotizador() {
       }
 
       setSent(true)
+
     } catch (error) {
+
       console.error(
         'Error enviando presupuesto:',
         error
@@ -153,6 +156,7 @@ export default function Cotizador() {
       setMessage(
         'No pudimos enviar el presupuesto. Intentá nuevamente.'
       )
+
     } finally {
       setSending(false)
     }
@@ -221,11 +225,10 @@ export default function Cotizador() {
       form.reset()
       setContactTurnstileToken('')
       setMessage('')
+      setContactSent(true)
 
-      alert(
-        '¡Consulta enviada correctamente! Te contactaré a la brevedad.'
-      )
     } catch (error) {
+
       console.error(
         'Error enviando consulta:',
         error
@@ -234,6 +237,7 @@ export default function Cotizador() {
       setMessage(
         'No pudimos enviar la consulta. Intentá nuevamente.'
       )
+
     } finally {
       setSending(false)
     }
@@ -243,6 +247,7 @@ export default function Cotizador() {
     <div className="cotizador-page">
 
       <section className="hero">
+
         <div className="hero-content">
 
           <div className="hero-label">
@@ -262,6 +267,7 @@ export default function Cotizador() {
           </p>
 
         </div>
+
       </section>
 
       <main
@@ -958,6 +964,8 @@ export default function Cotizador() {
 
       </section>
 
+      {/* MODAL DEL COTIZADOR */}
+
       {showModal && (
 
         <div className="quote-modal-overlay">
@@ -1163,6 +1171,60 @@ export default function Cotizador() {
               </div>
 
             )}
+
+          </div>
+
+        </div>
+
+      )}
+
+      {/* MODAL DE CONTACTO */}
+
+      {contactSent && (
+
+        <div className="quote-modal-overlay">
+
+          <div className="quote-modal">
+
+            <button
+              type="button"
+              className="quote-modal-close"
+              onClick={() => {
+                setContactSent(false)
+                setMessage('')
+              }}
+            >
+              ×
+            </button>
+
+            <div className="quote-success">
+
+              <div className="quote-success-icon">
+                ✓
+              </div>
+
+              <h2>
+                ¡Consulta enviada!
+              </h2>
+
+              <p>
+                Recibimos tu mensaje correctamente.
+                Te contactaré a la brevedad para hablar
+                sobre tu proyecto.
+              </p>
+
+              <button
+                type="button"
+                className="contact-submit"
+                onClick={() => {
+                  setContactSent(false)
+                  setMessage('')
+                }}
+              >
+                Cerrar
+              </button>
+
+            </div>
 
           </div>
 
