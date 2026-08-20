@@ -1,3 +1,4 @@
+```jsx
 import { useEffect, useState } from 'react'
 import './Navbar.css'
 
@@ -6,6 +7,7 @@ const LINKS = [
   { href: '#stack', label: 'Stack' },
   { href: '#proyectos', label: 'Proyectos' },
   { href: '#servicios', label: 'Qué hago' },
+  { href: '/cotizador', label: 'Cotizador' },
   { href: '#contacto', label: 'Contacto' },
 ]
 
@@ -27,20 +29,34 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="container navbar-inner">
+
         <a href="#top" className="navbar-brand">
           <span className="navbar-brand-mark">&lt;/&gt;</span>
-          joaquiandrade<span className="navbar-brand-dot">.</span>com<span className="footer-brand-dot">.</span>ar
+          joaquiandrade
+          <span className="navbar-brand-dot">.</span>
+          com
+          <span className="footer-brand-dot">.</span>
+          ar
         </a>
 
-        <nav className="navbar-links" aria-label="Navegación principal">
+        <nav
+          className="navbar-links"
+          aria-label="Navegación principal"
+        >
           {LINKS.map((link) => (
-            <a key={link.href} href={link.href}>
+            <a
+              key={link.href}
+              href={link.href}
+            >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <a href="#contacto" className="btn btn-secondary navbar-cta">
+        <a
+          href="#contacto"
+          className="btn btn-secondary navbar-cta"
+        >
           Contactarme
         </a>
 
@@ -56,16 +72,29 @@ export default function Navbar() {
         </button>
       </div>
 
-      <nav className={`navbar-mobile ${open ? 'is-open' : ''}`} aria-label="Navegación mobile">
+      <nav
+        className={`navbar-mobile ${open ? 'is-open' : ''}`}
+        aria-label="Navegación mobile"
+      >
         {LINKS.map((link) => (
-          <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
+          <a
+            key={link.href}
+            href={link.href}
+            onClick={() => setOpen(false)}
+          >
             {link.label}
           </a>
         ))}
-        <a href="#contacto" className="btn btn-primary" onClick={() => setOpen(false)}>
+
+        <a
+          href="#contacto"
+          className="btn btn-primary"
+          onClick={() => setOpen(false)}
+        >
           Contactarme
         </a>
       </nav>
     </header>
   )
 }
+```
