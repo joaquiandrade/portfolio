@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer-inner">
         <p className="footer-brand">
-          joaquiandrade<span className="footer-brand-dot">.</span>dev
+          joaquiandrade<span className="footer-brand-dot">.</span>com.ar
         </p>
         <p className="footer-note">
           © {year} Joaquina Andrade

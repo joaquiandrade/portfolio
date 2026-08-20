@@ -29,7 +29,7 @@ export default function Navbar() {
       <div className="container navbar-inner">
         <a href="#top" className="navbar-brand">
           <span className="navbar-brand-mark">&lt;/&gt;</span>
-          joaquiandrade<span className="navbar-brand-dot">.</span>dev
+          joaquiandrade<span className="navbar-brand-dot">.</span>com.ar
         </a>
 
         <nav className="navbar-links" aria-label="Navegación principal">
