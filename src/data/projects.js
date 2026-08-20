@@ -1,4 +1,5 @@
 import postventaImage from '../assets/postventa.png'
+import cotizadorImage from '../assets/cotizador.png'
 
 export const projects = [
   {
@@ -42,4 +43,17 @@ export const projects = [
     featured: true,
     commercial: true,
   },
+{
+  id: 'cotizador-web',
+  name: 'Cotizador de proyectos web',
+  description:
+    'Herramienta interactiva que permite estimar el presupuesto de un proyecto web según el tipo de solución, funcionalidades y servicios seleccionados.',
+  role:
+    'Diseño y desarrollo integral de la aplicación, incluyendo la lógica de cálculo, interfaz y experiencia de usuario.',
+  stack: ['React', 'JavaScript', 'CSS', 'Vite'],
+  github: null,
+  demo: '/cotizador',
+  image: cotizadorImage,
+  accent: 'orange',
+}
 ]

@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -8,10 +10,13 @@ import Currently from './components/Currently'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 
-export default function App() {
+import Cotizador from './components/Cotizador/Cotizador'
+
+function Portfolio() {
   return (
     <>
       <Navbar />
+
       <main>
         <Hero />
         <About />
@@ -21,7 +26,22 @@ export default function App() {
         <Currently />
         <Contact />
       </main>
+
       <Footer />
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<Portfolio />} />
+
+        <Route path="/cotizador" element={<Cotizador />} />
+
+      </Routes>
+    </BrowserRouter>
   )
 }

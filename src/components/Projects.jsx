@@ -33,6 +33,8 @@ export default function Projects() {
 
   // El resto continúa mostrándose como tarjetas normales
   const regularProjects = projects.filter((project) => !project.featured)
+  console.log('PROYECTOS:', projects)
+console.log('NORMALES:', regularProjects)
 
   return (
     <section id="proyectos" className="section projects" ref={ref}>
