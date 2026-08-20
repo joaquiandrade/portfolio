@@ -246,6 +246,13 @@ export default function Cotizador() {
   return (
     <div className="cotizador-page">
 
+    <a
+      href="/"
+      className="back-to-portfolio"
+    >
+      ← Volver al portfolio
+    </a>
+
       <section className="hero">
 
         <div className="hero-content">
