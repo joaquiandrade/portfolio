@@ -1,4 +1,4 @@
-```jsx
+
 import { useEffect, useState } from 'react'
 import './Navbar.css'
 
@@ -97,4 +97,3 @@ export default function Navbar() {
     </header>
   )
 }
-```
