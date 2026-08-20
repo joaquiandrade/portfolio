@@ -1,0 +1,51 @@
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.service-item {
+  background: var(--surface);
+  padding: 1.9rem 1.7rem;
+  transition: background 0.25s ease;
+}
+
+.service-item:hover {
+  background: var(--surface-hover);
+}
+
+.service-item-title {
+  font-size: 1.02rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.service-item-title::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--violet);
+}
+
+.service-item-description {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  padding-left: 1rem;
+}
+
+@media (max-width: 780px) {
+  .services-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}

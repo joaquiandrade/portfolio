@@ -1,0 +1,26 @@
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 3rem;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  color: var(--text-secondary);
+  font-size: 1.04rem;
+  max-width: 620px;
+}
+
+.about-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 780px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
